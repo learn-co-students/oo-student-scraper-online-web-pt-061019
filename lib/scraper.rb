@@ -1,7 +1,6 @@
 require 'open-uri'
 require 'pry'
 require 'nokogiri'
-# require_relative './profile.rb'
 
 class Scraper
 
@@ -20,11 +19,8 @@ class Scraper
       student = {}
       student[:name] = i.css(".student-name").text
       student[:location] =i.css(".student-location").text
-      # student[:profile_url] = './fixtures/student-site/' + i.css("a").attribute("href").value  #.first[#href]
       student[:profile_url] = i.css("a").attribute("href").value  #.first[#href]
-
       students<< student
-      # binding.pry
     end
     students
   end
@@ -45,7 +41,6 @@ class Scraper
       end
     end
     profile[:profile_quote] = doc.css(".vitals-text-container .profile-quote").text
-    # binding.pry
     profile[:bio] = doc.css(".details-container .description-holder p").text
 
     profile
