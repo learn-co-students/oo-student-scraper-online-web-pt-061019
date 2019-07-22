@@ -15,6 +15,7 @@ class Student
     @bio = student_hash[:bio]
     @profile_url = student_hash[:profile_url]
     @@all << self
+    binding.pry
   end
 
   def self.create_from_collection(students_array)
@@ -26,7 +27,7 @@ class Student
     attributes_hash.each do |key, value|
       self.send("#{key}=", value)
       #(key=) set additional attributes
-      binding.pry
+      # binding.pry
     end
     self
   end
