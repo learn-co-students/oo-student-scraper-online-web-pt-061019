@@ -15,7 +15,7 @@ class Student
     @bio = student_hash[:bio]
     @profile_url = student_hash[:profile_url]
     @@all << self
-    binding.pry
+    # binding.pry
   end
 
   def self.create_from_collection(students_array)
