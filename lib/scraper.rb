@@ -25,6 +25,7 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
+
     student = {}
 
     profile = Nokogiri::HTML(open(profile_url))
@@ -39,9 +40,11 @@ class Scraper
       else
         student[:blog] = soc_link
       end
-    student[:profile_quote] = profile.css(".div.profile-quote").text
-    student[:bio] = profile.css("div.bio-content.content-holder div.description-holder p").text
     end
+    student[:profile_quote] = profile.css(".profile-quote").text
+    student[:bio] = profile.css("div.bio-content.content-holder div.description-holder p").text
+
+    student
   end
 
 end
