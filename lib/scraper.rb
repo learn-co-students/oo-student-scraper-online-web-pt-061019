@@ -28,8 +28,9 @@ class Scraper
         profile_page[:blog] = link["href"]
       end
     end
+    profile_page[:profile_quote] = page.css("div.profile-quote").text
+    profile_page[:bio] = page.css("div.description-holder p").text
     profile_page
-    binding.pry
   end
 
 end
