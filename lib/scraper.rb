@@ -24,12 +24,11 @@ class Scraper
 
   def self.scrape_profile_page(profile_url)
     binding.pry
-    # url = open(profile_url)
-    # binding.pry
-    # profile_page = Nokogiri::HTML(url)
-    # binding.pry
-    # twitter_url = profile_page.css('a').text
-    # binding.pry
+    url = open(profile_url)
+    profile_page = Nokogiri::HTML(url)
+    data = profile_page.css('div.social-icon-container')
+    twitter_url = profile_page.css('a').text
+    linkedin_url = profile_page.css()
   end
 
 end
