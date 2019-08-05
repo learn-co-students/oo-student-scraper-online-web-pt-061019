@@ -10,9 +10,9 @@ class Scraper
     student_cards = doc.css(".student-card")
     student_cards.map {|card|
       student = {}
-      student[name] = card.css(".student-name").text.strip
-      student[location] = card.css(".student-location").text.strip
-      student[profile_url] = card.css("a")[0]["href"]
+      student[:name] = card.css(".student-name").text.strip
+      student[:location] = card.css(".student-location").text.strip
+      student[:profile_url] = card.css("a")[0]["href"]
       student
   }
   end
