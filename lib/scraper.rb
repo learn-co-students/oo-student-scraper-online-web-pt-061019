@@ -22,16 +22,19 @@ class Scraper
     student = {}
     links = doc.css(".social-icon-container").children.css("a").map {|link| link["href"] }
     links.each {|link|
-      if link.include?("twitter") {
+      if link.include?("twitter") 
         student[:twitter] = link
       elsif link.include?("linkedin")
         student[:linkedin] = link
       elsif link.include?("github")
         student[:github] = link
-      }
-      
+      else
+        student[:blog] = link
+      end
     }
-    binding.pry
+    student[:profile_quote] = doc.css(".profile-quote").text.strip
+    student[:bio] = doc.css(".bio-block.details-block .description-holder p").text
+    # binding.pry
   end
 
 end
