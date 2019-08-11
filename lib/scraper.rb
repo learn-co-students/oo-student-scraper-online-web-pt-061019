@@ -4,7 +4,7 @@ require 'pry'
 
 class Scraper
 
-attr_accessor :name, :location, :profile_url, :twitter, :linkedin, :github, :blog, :profile_quote, :bio
+attr_accessor :name, :location, :profile_url
 
   def self.scrape_index_page(index_url)
     array = []
@@ -30,35 +30,40 @@ attr_accessor :name, :location, :profile_url, :twitter, :linkedin, :github, :blo
   end
 
   def self.scrape_profile_page(profile_url)
-    new_array = []
+    hash = {}
+    twitter_page = nil
+    linkedin_page = nil
+    github_page = nil
+    blog_page = nil
+    profile_quote = nil
+    bio = nil
     doc = Nokogiri::HTML(open(profile_url))
     all_urls = doc.css(".social-icon-container").css("a")
     list_of_urls = all_urls.collect do |page|
       page['href']
     end
-    twitter_page = list_of_urls.find do |pages|
-      pages.include?("twitter")
-    end
-    linkedin_page = list_of_urls.find do |pages|
+    list_of_urls.each do |pages|
+      if pages.include?("twitter")
+        twitter_page = pages
+        hash[:twitter] = twitter_page
+    elsif
       pages.include?("linkedin")
-    end
-    github_page = list_of_urls.find do |pages|
+      linkedin_page = pages
+      hash[:linkedin] = linkedin_page
+    elsif
       pages.include?("github")
+      github_page = pages
+      hash[:github] = github_page
+    elsif
+      blog_page = pages
+      hash[:blog] = blog_page
     end
-    blog_page = list_of_urls.find do |pages|
-      pages.include?(name) == true
-      #pages
-    #  end
-    #end
-    #quotes = doc.css("div.profile-quote").css
-    #binding.pry
-    #student_quote = quotes.collect do |quote|
-  #    quote.text
-  #  end
-  #  binding.pry
-
-end
+    end
+    profile_quote = doc.css(".profile-quote").text
+    bio = doc.css(".description-holder").css("p").text
+    hash[:profile_quote] = profile_quote
+    hash[:bio] = bio
+    return hash
   end
 
-end
 end
